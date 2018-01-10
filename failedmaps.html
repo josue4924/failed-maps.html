@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body { 
+  background-color:black;
+  color:pitch black;
+  }
+  p {outline-color:black}
+  .double {outline-style:double}
+  h1{}
+  div{
+  padding: 10px;
+  border: 1px solid black;
+  }
+  </style>
+  <head>
+  <title> parking tickets</title>
+  </head>
+  <body>
+  <center><h1 class="fix">parking tickets</h1></center>
+  <p class="double">
+  <button>show zones that are odd_even,row_id, and status</button>
+  <script src=>"https://console.developers.google.com/apis/dashboard"</script>
+  <script>
+      /*global$*/(document).ready(function() {
+      /*global$*/("button").click(function() {
+       /*global$*//*ajax*/({
+          url:"https://data.cityofchicago.org/resource/ys7w-i4tk.json",
+          success:function(result) {
+          console.log(result);
+             /*global$*//*global.getJSON*/ /*global url*/
+        global.done (function (data) {
+         console.log(data);
+         //loop through the records
+          
+          /*global$*/ /*global each*/(data, function(index, value){
+          var html="<div><h1>"+ value.status +"<h1>" +
+          "<p>odd_even :" + value.odd_even + "<br>" +
+          "row_id:" + value.row_id+
+          "</p>" +
+          "</div>";
+    
+    /*global$*/("body").append(html);
+  });
+});
+     }
+    });
+  });
+});

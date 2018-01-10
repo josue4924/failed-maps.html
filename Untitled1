@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body { 
+  background-color:black;
+  color:pitch black;
+  }
+  p {outline-color:black;}
+  .double {outline-style:double;}
+  h1{}
+  div{
+  padding: 10px;
+  border: 1px solid black;
+  }
+  </style>
+  <head>
+  <title> parking tickets</title>
+  </head>
+  <body>
+  <center><h1 class="fix">all parking tickets</h1></center>
+  <p class="double">
+  <button>show zones that are odd or even</button>
+  <script src="https://data.cityofchicago.org/Transportation/Parking-Permit-Zones/u9xt-hiju/data"></script>
+  <script>
+      $(document).ready(function() {
+      $("button").click(function() {
+       $.ajax({
+          url:"https://data.cityofchicago.org/resource/ys7w-i4tk.json"
+          success:function(result) {
+          console.log(result);
+             $.getJSON(url)
+        .done (function (data) {
+         console.log(data);
+         //loop through the records
+          
+          $.each(data, function(index, value){
+          var html="<div><h1>"+ value.title +"<h1>" +
+          "<p>odd_even :" + value.odd_even + "<br>" +
+          "Zone:" + value.zone +
+          "</p>" +
+          "</div>";
+    
+    $("body").append(html);
+  });
+})
+     }
+    });
+  });
+});
