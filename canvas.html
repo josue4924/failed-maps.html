@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="400" style="border:5px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "50px Arial";
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var canvas = document.querySelector("#myCanvas");
+var context = canvas.getContext("2d");
+ var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+// Create gradient
+var grd = ctx.createRadialGradient(100,100,10,100,100,300);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+
+// Fill with gradient
+ctx.fillStyle = grd;
+ctx.fillRect(10,90,1000,200);
+var canvas = document.querySelector("#myCanvas");
+var context = canvas.getContext("2d");
+ 
+context.moveTo(100,200);
+context.lineTo(100,100);
+context.moveTo(200,200);
+context.quadraticCurveTo(300,200,200,100);
+context.closePath();
+context.moveTo(105,200);
+context.lineTo(50,150);
+context.stroke()
+ context.moveTo(50,100);
+context.lineTo(150,100);
+context.stroke()
+context.lineWidth = 15;
+context.strokeStyle = "#FFCC00";
+ 
+context.stroke();
+
+
+
+</script>
+
+</body>
+</html>
