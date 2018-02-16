@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="500" height="500" style="border:100px solid"></canvas>
+       	<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var ballRadius = 20;
+var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 1;
+var dy = -4;
+
+var ballRadius2 = 30;
+var x2 = canvas.width/3;
+var y2 = canvas.height-60;
+var dx2 = 2;
+var dy2 = -3;
+
+var ballRadius3 = 50;
+var x3 = canvas.width/2;
+var y3 = canvas.height/2;
+var dx3 = 3;
+var dy3 = -2;
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+function drawBall2() {
+    ctx.beginPath();
+    ctx.arc(x2, y2, ballRadius2, 0, Math.PI*2);
+    ctx.fillStyle = "#800000";
+    ctx.fill();
+    ctx.closePath();
+}
+function drawBall3() {
+    ctx.beginPath();
+    ctx.arc(x3, y3, ballRadius3, 0, Math.PI*2);
+    ctx.fillStyle = "#FFFF00";
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawBall2();
+    drawBall3();
+    
+    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+    if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+        dy = -dy;
+    }
+    
+    x += dx;
+    y += dy;
+    
+    if(x2 + dx2 > canvas.width-ballRadius || x2 + dx2 < ballRadius) {
+        dx2 = -dx2;
+    }
+    if(y2 + dy2 > canvas.height-ballRadius || y2 + dy2 < ballRadius) {
+        dy2 = -dy2;
+    }
+    
+    x2 += dx2;
+    y2 += dy2;
+    
+    if(x3 + dx3 > canvas.width-ballRadius || x3 + dx3< ballRadius) {
+        dx3 = -dx3;
+    }
+    if(y3 + dy3 > canvas.height-ballRadius || y3 + dy3 < ballRadius) {
+        dy3 = -dy3;
+    }
+    
+    x3 += dx3;
+    y3 += dy3;
+
+}
+setInterval(draw, 1);
+
+</script>
+    </body>
+</html>
