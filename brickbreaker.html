@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Brick breaker Game</title>
+
+  <style type="text/css">
+    body {
+      background-color: black;
+    }
+    canvas {
+      border: 10px solid white;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <canvas id="game-canvas" height="320px" width="480px" </canvas>
+
+    <script type="text/javascript">
+      var canvas = document.getElementById("game-canvas");
+      
+      var ctx = canvas.getContext("2d");
+
+
+      var ballR = 10;
+      var x = canvas.width / 2;
+      var y = canvas.height - 30;
+      var dx = 3;
+      var dy = -3;
+      var pongH = 15;
+      var pongW = 80;
+      var pongX = (canvas.width - pongW) / 2;
+      var rightKey = false;
+      var leftKey = false;
+      var brickRows = 5;
+      var brickCol = 5;
+      var brickW = 75;
+      var brickH = 15;
+      var brickPadding = 10;
+      var brickOffsetTop = 30;
+      var brickOffsetLeft = 30;
+      var lives = 3;
+      var score = 0;
+      
+      var bricks = [];
+      for (c = 0; c < brickCol; c++) {
+        bricks[c] = [];
+        for (r = 0; r < brickRows; r++) {
+          bricks[c][r] = {
+            x: 0,
+            y: 0,
+            status: 1
+          };
+        }
+      }
+
+
+       
+      function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballR, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+       
+      function drawPong() {
+        ctx.beginPath();
+        ctx.rect(pongX, canvas.height - pongH, pongW, pongH);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+       
+      function drawBricks() {
+        for (c = 0; c < brickCol; c++) {
+          for (r = 0; r < brickRows; r++) {
+            if (bricks[c][r].status == 1) {
+              var brickX = (c * (brickW + brickPadding)) + brickOffsetLeft;
+              var brickY = (r * (brickH + brickPadding)) + brickOffsetTop;
+              bricks[c][r].x = brickX;
+              bricks[c][r].y = brickY;
+              ctx.beginPath();
+              ctx.rect(brickX, brickY, brickW, brickH);
+              ctx.fillStyle = "white";
+              ctx.fill();
+              ctx.closePath();
+            }
+          }
+        }
+      }
+
+
+
+
+      function collisionDetection() {
+        for (c = 0; c < brickCol; c++) {
+          for (r = 0; r < brickRows; r++) {
+            var b = bricks[c][r];
+            if (b.status == 1) {
+              if (x > b.x && x < b.x + brickW && y > b.y && y < b.y + brickH) {
+                score++;
+                dy = -dy;
+                b.status = 0;
+              }
+            }
+          }
+        }
+      }
+function drawScore() {
+    ctx.font = "10px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score, 8, 20);
+}
+function drawLives() {
+    ctx.font = "10px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBricks();
+        drawBall();
+        drawPong();
+        collisionDetection();
+        drawScore();
+        drawLives();
+        
+        if (x + dx > canvas.width - ballR || x + dx < ballR) {
+          dx = -dx;
+        }
+
+        if (y + dy < ballR) {
+          dy = -dy;
+        } else if (y + dy > canvas.height - ballR) {
+          if (x > pongX && x < pongX + pongW) {
+            console.log("it fell");
+            //drawBall();
+            dy = -dy;
+            
+          } else {
+            lives--;
+            if(lives <= 0) {
+                //alert("GAME OVER");
+                document.location.reload();
+            }
+          }
+        }
+        /*
+        else {
+            lives--;
+            if(!lives) {
+                alert("GAME OVER");
+                document.location.reload();
+            }
+      }*/
+        function keyDown(e) {
+          if (e.keyCode == 39) {
+            rightKey = true;
+          } else if (e.keyCode == 37) {
+            leftKey = true;
+          }
+        }
+
+        
+        function keyUp(e) {
+          if (e.keyCode == 39) {
+            rightKey = false;
+          } else if (e.keyCode == 37) {
+            leftKey = false;
+          }
+        }
+
+        
+        document.addEventListener("keydown", keyDown, false);
+        document.addEventListener("keyup", keyUp, false);
+
+         
+        if (rightKey && pongX < canvas.width - pongW) {
+          pongX += 4;
+        }
+        
+        else if (leftKey && pongX > 0) {
+          pongX -= 7;
+        }
+        
+        x += dx;
+        y += dy;
+      }
+      
+
+      setInterval(draw, 10);
+    </script>
+</body>
+
+</html>
