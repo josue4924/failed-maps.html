@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html> 
+    <head> 
+        <title>jordan 1 game</title> 
+        <style>
+            canvas {
+                background-color:  #d3d3d3;
+            }
+        </style>
+    </head> 
+    <body> 
+    <img id="air jordan retro 1" width="1" height="1" src="https://cdn.shopify.com/s/files/1/0836/1407/products/Jordan-1-Retro-Chicago-Off-White-2_large.jpg?v=1493779848" alt="frog">
+        <canvas onclick="myFunction(event)" id="myCanvas" width="1000" height="800" style="border:10px solid   #ff0000;"></canvas>
+        <button onclick="location.reload()">Restart</button>
+        <script>
+            
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var score=0;
+            var lives=5;
+            var varx=500;
+            var vary=500;
+            ctx.textAlign="center";
+            ctx.font="25px Arial";
+            ctx.fillStyle="black";
+            ctx.fillText("Lives: "+lives, 60, 30);
+            ctx.fillText("Score: "+score, 900, 30);
+            var img = document.getElementById("air jordan retro 1");
+            ctx.drawImage(img, varx, vary);
+            
+            function myFunction(event){
+                var xpos=event.clientX;
+                var ypos=event.clientY;
+                if (xpos>=varx && xpos<=varx+320 && ypos>=vary && ypos<=vary+320){
+                    ctx.clearRect(0, 0, 1200, 1000);
+                    score++;
+                    ctx.fillText("Score: "+score, 900, 30);
+                    ctx.fillText("Lives: "+lives, 60, 30);
+                    varx=Math.random()*800;
+                    vary=Math.random()*600;
+                    ctx.drawImage(img, varx, vary);
+                } else {
+                    ctx.clearRect(0, 0, 1200, 1000);
+                    lives--;
+                    ctx.fillText("Score: "+score, 900, 30);
+                    ctx.fillText("Lives: "+lives, 60, 30);
+                    varx=Math.random()*450;
+                    vary=Math.random()*450;
+                    ctx.drawImage(img, varx, vary);
+                    if (lives==0){
+                        alert("loser!");
+                        location.reload();
+                    }
+                }
+             if (score==10 && lives==5){
+                    alert("keep it up!");
+                    location.reload();
+                } else if (score==10){
+                    alert("you have won!");
+                    location.reload();
+                }
+            }
+
+        </script>
+    </body> 
+</html>
